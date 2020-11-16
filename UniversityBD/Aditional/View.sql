@@ -19,9 +19,9 @@ GO
 CREATE VIEW vwSchoolDepartmentBuilding
 AS
 SELECT
-	s.schoolName [School Name],
-	d.departmentName [Department Name],
-	b.buildingAddress [Address]
+	s.[schoolName] AS [School Name],
+	d.[departmentName] AS [Department Name],
+	b.[buildingAddress] AS [Address]
 FROM
 	university.tblDepartment d
 	JOIN university.tblSchool s ON s.schoolId = d.departmentSchoolId
@@ -61,4 +61,4 @@ ON student.tblStudent(studentFirst)
 GO
 
 
---SELECT studentFirst FROM tblStudent 
+--SELECT studentFirst FROM student.tblStudent 
