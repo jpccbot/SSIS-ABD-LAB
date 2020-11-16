@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="41"
-  DTS:VersionGUID="{50A1AC41-FCD0-4E38-BA86-1A1A33A670EF}">
+  DTS:VersionBuild="43"
+  DTS:VersionGUID="{11D38CED-B1FA-420F-A781-09E51935E6D8}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -887,6 +887,940 @@ where [refTable].[COURSE_NAME] = ?</property>
               endId="Package\ETL Course\Data Conversion.Inputs[Data Conversion Input]"
               name="OLE DB Source Output"
               startId="Package\ETL Course\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ETL Score"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{703A9FEE-F902-4F2F-8818-FBE32B77E2B7}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ETL Score"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\ETL Score\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\ETL Score\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ETL Score\Conditional Split.Inputs[Conditional Split Input].Columns[SCORE_SCORE]"
+                      cachedDataType="i4"
+                      cachedName="SCORE_SCORE"
+                      lineageId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_SCORE]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ETL Score\Conditional Split.Outputs[Agregar]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Agregar"
+                  synchronousInputId="Package\ETL Score\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_SCORE]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(SCORE_SCORE)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\ETL Score\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\ETL Score\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\ETL Score\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\ETL Score\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL Score\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ETL Score\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ETL Score\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input].Columns[STUNDENT_ID]"
+                      cachedDataType="i4"
+                      cachedName="STUNDENT_ID"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]" />
+                    <inputColumn
+                      refId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input].Columns[COURSE_ID]"
+                      cachedDataType="i4"
+                      cachedName="COURSE_ID"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]" />
+                    <inputColumn
+                      refId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input].Columns[STAFF_ID]"
+                      cachedDataType="i4"
+                      cachedName="STAFF_ID"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]" />
+                    <inputColumn
+                      refId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input].Columns[TIME_ID]"
+                      cachedDataType="i4"
+                      cachedName="TIME_ID"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]" />
+                    <inputColumn
+                      refId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input].Columns[Nota]"
+                      cachedDataType="i4"
+                      cachedName="Nota"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[Nota]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STUNDENT_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STUNDENT_ID]"
+                      name="Copy of STUNDENT_ID"
+                      precision="18"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of COURSE_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of COURSE_ID]"
+                      name="Copy of COURSE_ID"
+                      precision="18"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STAFF_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STAFF_ID]"
+                      name="Copy of STAFF_ID"
+                      precision="18"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TIME_ID]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TIME_ID]"
+                      name="Copy of TIME_ID"
+                      precision="18"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Nota]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Nota]"
+                      name="Copy of Nota"
+                      precision="18"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[Nota]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ETL Score\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[FACT_SCORE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[FACT_SCORE]) [refTable]
+where [refTable].[SCORE_STUDENT_ID] = ? and [refTable].[SCORE_COURSE_ID] = ? and [refTable].[SCORE_STAFF_ID] = ? and [refTable].[SCORE_TIME_ID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SCORE_COURSE_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SCORE_STUDENT_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SCORE_STAFF_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SCORE_TIME_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SCORE_SCORE" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]};#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]};#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]};#{Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ETL Score\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ETL Score\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ETL Score\Lookup.Inputs[Lookup Input].Columns[STUNDENT_ID]"
+                      cachedDataType="i4"
+                      cachedName="STUNDENT_ID"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SCORE_STUDENT_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\ETL Score\Lookup.Inputs[Lookup Input].Columns[COURSE_ID]"
+                      cachedDataType="i4"
+                      cachedName="COURSE_ID"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SCORE_COURSE_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\ETL Score\Lookup.Inputs[Lookup Input].Columns[STAFF_ID]"
+                      cachedDataType="i4"
+                      cachedName="STAFF_ID"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SCORE_STAFF_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\ETL Score\Lookup.Inputs[Lookup Input].Columns[TIME_ID]"
+                      cachedDataType="i4"
+                      cachedName="TIME_ID"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">SCORE_TIME_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ETL Score\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\ETL Score\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_COURSE_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_COURSE_ID]"
+                      name="SCORE_COURSE_ID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SCORE_COURSE_ID</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_STUDENT_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_STUDENT_ID]"
+                      name="SCORE_STUDENT_ID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SCORE_STUDENT_ID</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_STAFF_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_STAFF_ID]"
+                      name="SCORE_STAFF_ID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SCORE_STAFF_ID</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_SCORE]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_SCORE]"
+                      name="SCORE_SCORE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SCORE_SCORE</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_TIME_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\ETL Score\Lookup.Outputs[Lookup Match Output].Columns[SCORE_TIME_ID]"
+                      name="SCORE_TIME_ID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">SCORE_TIME_ID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\ETL Score\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\ETL Score\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\ETL Score\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\ETL Score\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL Score\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ETL Score\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ETL Score\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FACT_SCORE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ETL Score\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of COURSE_ID]"
+                      cachedDataType="numeric"
+                      cachedName="Copy of COURSE_ID"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_COURSE_ID]"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of COURSE_ID]" />
+                    <inputColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of STUNDENT_ID]"
+                      cachedDataType="numeric"
+                      cachedName="Copy of STUNDENT_ID"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_STUDENT_ID]"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STUNDENT_ID]" />
+                    <inputColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of STAFF_ID]"
+                      cachedDataType="numeric"
+                      cachedName="Copy of STAFF_ID"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_STAFF_ID]"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STAFF_ID]" />
+                    <inputColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Nota]"
+                      cachedDataType="numeric"
+                      cachedName="Copy of Nota"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_SCORE]"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Nota]" />
+                    <inputColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of TIME_ID]"
+                      cachedDataType="numeric"
+                      cachedName="Copy of TIME_ID"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_TIME_ID]"
+                      lineageId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TIME_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_COURSE_ID]"
+                      dataType="i4"
+                      name="SCORE_COURSE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_STUDENT_ID]"
+                      dataType="i4"
+                      name="SCORE_STUDENT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_STAFF_ID]"
+                      dataType="i4"
+                      name="SCORE_STAFF_ID" />
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_SCORE]"
+                      dataType="i4"
+                      name="SCORE_SCORE" />
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_TIME_ID]"
+                      dataType="i4"
+                      name="SCORE_TIME_ID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ETL Score\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ETL Score\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT	studentDM.STUNDENT_ID,
+		courseDM.COURSE_ID,
+		staffDM.STAFF_ID,
+		timeDM.TIME_ID,
+		EnrolDetailU.detailScore AS Nota
+
+FROM UniversityBD.student.tblEnrolmentDetail AS EnrolDetailU
+INNER JOIN UniversityBD.student.tblEnrolment AS EnrolU
+ON ENrolU.enrolmentId = EnrolDetailU.detailEnrolmentId
+INNER JOIN UniversityBD.student.tblStudent AS StudentU
+ON StudentU.studentId = ENrolU.enrolmentStudentId
+INNER JOIN UniversityBD.university.tblStaff AS StaffU
+ON StaffU.staffId = EnrolDetailU.detailStaffId
+INNER JOIN UniversityBD.university.tblCourse AS CourseU
+ON CourseU.courseId = EnrolDetailU.detailCourseId
+INNER JOIN UniversityBD.university.tblDepartment AS DeptU
+ON DeptU.departmentId = CourseU.courseDepartmentId
+INNER JOIN UniversityBD.university.tblSchool as SchoolU
+ON SchoolU.schoolId = DeptU.departmentSchoolId
+
+INNER JOIN DMUniversityBD.dbo.DIM_STUDENT AS studentDM
+ON studentDM.STUDENT_EMAIL = StudentU.studentEmail
+INNER JOIN DMUniversityBD.dbo.DIM_COURSE AS courseDM
+ON courseDM.COURSE_NAME = CourseU.courseName
+INNER JOIN DMUniversityBD.dbo.DIM_STAFF AS staffDM
+ON staffDM.STAFF_EMAIL = StaffU.staffEmail
+INNER JOIN DMUniversityBD.dbo.DIM_TIME AS timeDM
+ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ETL Score\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[STUNDENT_ID]"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]"
+                      name="STUNDENT_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[COURSE_ID]"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]"
+                      name="COURSE_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[STAFF_ID]"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]"
+                      name="STAFF_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TIME_ID]"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]"
+                      name="TIME_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[Nota]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Nota]"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].Columns[Nota]"
+                      name="Nota"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[STUNDENT_ID]"
+                      dataType="i4"
+                      name="STUNDENT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[COURSE_ID]"
+                      dataType="i4"
+                      name="COURSE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[STAFF_ID]"
+                      dataType="i4"
+                      name="STAFF_ID" />
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TIME_ID]"
+                      dataType="i4"
+                      name="TIME_ID" />
+                    <externalMetadataColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Nota]"
+                      dataType="i4"
+                      name="Nota" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[STUNDENT_ID]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[STUNDENT_ID]"
+                      name="STUNDENT_ID" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[COURSE_ID]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[COURSE_ID]"
+                      name="COURSE_ID" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[STAFF_ID]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[STAFF_ID]"
+                      name="STAFF_ID" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TIME_ID]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TIME_ID]"
+                      name="TIME_ID" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Nota]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Nota]"
+                      name="Nota" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\ETL Score.Paths[Agregar]"
+              endId="Package\ETL Score\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Agregar"
+              startId="Package\ETL Score\Conditional Split.Outputs[Agregar]" />
+            <path
+              refId="Package\ETL Score.Paths[Data Conversion Output]"
+              endId="Package\ETL Score\Lookup.Inputs[Lookup Input]"
+              name="Data Conversion Output"
+              startId="Package\ETL Score\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\ETL Score.Paths[Lookup Match Output]"
+              endId="Package\ETL Score\Conditional Split.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\ETL Score\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\ETL Score.Paths[OLE DB Source Output]"
+              endId="Package\ETL Score\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\ETL Score\OLE DB Source.Outputs[OLE DB Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -3987,940 +4921,6 @@ FROM UniversityBD.student.tblEnrolment</property>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\ETL Ventas"
-      DTS:CreationName="Microsoft.Pipeline"
-      DTS:Description="Data Flow Task"
-      DTS:DTSID="{703A9FEE-F902-4F2F-8818-FBE32B77E2B7}"
-      DTS:ExecutableType="Microsoft.Pipeline"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="ETL Ventas"
-      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <pipeline
-          version="1">
-          <components>
-            <component
-              refId="Package\ETL Ventas\Conditional Split"
-              componentClassID="Microsoft.ConditionalSplit"
-              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
-              name="Conditional Split"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\ETL Ventas\Conditional Split.Inputs[Conditional Split Input]"
-                  description="Input to the Conditional Split Transformation"
-                  name="Conditional Split Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\ETL Ventas\Conditional Split.Inputs[Conditional Split Input].Columns[SCORE_SCORE]"
-                      cachedDataType="i4"
-                      cachedName="SCORE_SCORE"
-                      lineageId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_SCORE]" />
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\ETL Ventas\Conditional Split.Outputs[Agregar]"
-                  description="Output 1 of the Conditional Split Transformation"
-                  errorOrTruncationOperation="Computation"
-                  errorRowDisposition="FailComponent"
-                  exclusionGroup="1"
-                  name="Agregar"
-                  synchronousInputId="Package\ETL Ventas\Conditional Split.Inputs[Conditional Split Input]"
-                  truncationRowDisposition="FailComponent">
-                  <properties>
-                    <property
-                      containsID="true"
-                      dataType="System.String"
-                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">[ISNULL](#{Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_SCORE]})</property>
-                    <property
-                      containsID="true"
-                      dataType="System.String"
-                      description="Specifies the friendly version of the expression. This expression version uses column names."
-                      expressionType="Notify"
-                      name="FriendlyExpression">ISNULL(SCORE_SCORE)</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
-                      name="EvaluationOrder">0</property>
-                  </properties>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\ETL Ventas\Conditional Split.Outputs[Conditional Split Default Output]"
-                  description="Default Output of the Conditional Split Transformation"
-                  exclusionGroup="1"
-                  name="Conditional Split Default Output"
-                  synchronousInputId="Package\ETL Ventas\Conditional Split.Inputs[Conditional Split Input]">
-                  <properties>
-                    <property
-                      dataType="System.Boolean"
-                      name="IsDefaultOut">true</property>
-                  </properties>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\ETL Ventas\Conditional Split.Outputs[Conditional Split Error Output]"
-                  description="Error Output of the Conditional Split Transformation"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Conditional Split Error Output"
-                  synchronousInputId="Package\ETL Ventas\Conditional Split.Inputs[Conditional Split Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\ETL Ventas\Data Conversion"
-              componentClassID="Microsoft.DataConvert"
-              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-              description="Data Conversion"
-              name="Data Conversion"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input]"
-                  name="Data Conversion Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input].Columns[STUNDENT_ID]"
-                      cachedDataType="i4"
-                      cachedName="STUNDENT_ID"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]" />
-                    <inputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input].Columns[COURSE_ID]"
-                      cachedDataType="i4"
-                      cachedName="COURSE_ID"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]" />
-                    <inputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input].Columns[STAFF_ID]"
-                      cachedDataType="i4"
-                      cachedName="STAFF_ID"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]" />
-                    <inputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input].Columns[TIME_ID]"
-                      cachedDataType="i4"
-                      cachedName="TIME_ID"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]" />
-                    <inputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input].Columns[Nota]"
-                      cachedDataType="i4"
-                      cachedName="Nota"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Nota]" />
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output]"
-                  exclusionGroup="1"
-                  name="Data Conversion Output"
-                  synchronousInputId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STUNDENT_ID]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STUNDENT_ID]"
-                      name="Copy of STUNDENT_ID"
-                      precision="18"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
-                          name="SourceInputColumnLineageID">#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of COURSE_ID]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of COURSE_ID]"
-                      name="Copy of COURSE_ID"
-                      precision="18"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
-                          name="SourceInputColumnLineageID">#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STAFF_ID]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STAFF_ID]"
-                      name="Copy of STAFF_ID"
-                      precision="18"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
-                          name="SourceInputColumnLineageID">#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TIME_ID]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TIME_ID]"
-                      name="Copy of TIME_ID"
-                      precision="18"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
-                          name="SourceInputColumnLineageID">#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Nota]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Nota]"
-                      name="Copy of Nota"
-                      precision="18"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Specifies the input column used as the source of data for the conversion."
-                          name="SourceInputColumnLineageID">#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Nota]}</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
-                          name="FastParse">false</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Data Conversion Error Output"
-                  synchronousInputId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\ETL Ventas\Lookup"
-              componentClassID="Microsoft.Lookup"
-              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
-              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
-              name="Lookup"
-              usesDispositions="true"
-              version="6">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="Specifies the SQL statement that generates the lookup table."
-                  expressionType="Notify"
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[FACT_SCORE]</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
-                  expressionType="Notify"
-                  name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[FACT_SCORE]) [refTable]
-where [refTable].[SCORE_STUDENT_ID] = ? and [refTable].[SCORE_COURSE_ID] = ? and [refTable].[SCORE_STAFF_ID] = ? and [refTable].[SCORE_TIME_ID] = ?</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the type of connection used to access the reference dataset."
-                  name="ConnectionType"
-                  typeConverter="LookupConnectionType">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the cache type of the lookup table."
-                  name="CacheType"
-                  typeConverter="CacheType">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
-                  name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
-                  name="NoMatchCachePercentage">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
-                  name="MaxMemoryUsage">25</property>
-                <property
-                  dataType="System.Int64"
-                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
-                  name="MaxMemoryUsage64">25</property>
-                <property
-                  dataType="System.String"
-                  description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="SCORE_COURSE_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SCORE_STUDENT_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SCORE_STAFF_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SCORE_TIME_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SCORE_SCORE" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
-                <property
-                  containsID="true"
-                  dataType="System.String"
-                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]};#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]};#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]};#{Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]};</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the column code page to use when code page information is unavailable from the data source."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
-                  name="TreatDuplicateKeysAsError">false</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\ETL Ventas\Lookup.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
-                  description="Connection manager used to access lookup data."
-                  name="OleDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\ETL Ventas\Lookup.Inputs[Lookup Input]"
-                  name="Lookup Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\ETL Ventas\Lookup.Inputs[Lookup Input].Columns[STUNDENT_ID]"
-                      cachedDataType="i4"
-                      cachedName="STUNDENT_ID"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">SCORE_STUDENT_ID</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\ETL Ventas\Lookup.Inputs[Lookup Input].Columns[COURSE_ID]"
-                      cachedDataType="i4"
-                      cachedName="COURSE_ID"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">SCORE_COURSE_ID</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\ETL Ventas\Lookup.Inputs[Lookup Input].Columns[STAFF_ID]"
-                      cachedDataType="i4"
-                      cachedName="STAFF_ID"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">SCORE_STAFF_ID</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\ETL Ventas\Lookup.Inputs[Lookup Input].Columns[TIME_ID]"
-                      cachedDataType="i4"
-                      cachedName="TIME_ID"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">SCORE_TIME_ID</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output]"
-                  errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="IgnoreFailure"
-                  exclusionGroup="1"
-                  name="Lookup Match Output"
-                  synchronousInputId="Package\ETL Ventas\Lookup.Inputs[Lookup Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_COURSE_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_COURSE_ID]"
-                      name="SCORE_COURSE_ID"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">SCORE_COURSE_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_STUDENT_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_STUDENT_ID]"
-                      name="SCORE_STUDENT_ID"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">SCORE_STUDENT_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_STAFF_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_STAFF_ID]"
-                      name="SCORE_STAFF_ID"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">SCORE_STAFF_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_SCORE]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_SCORE]"
-                      name="SCORE_SCORE"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">SCORE_SCORE</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_TIME_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output].Columns[SCORE_TIME_ID]"
-                      name="SCORE_TIME_ID"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">SCORE_TIME_ID</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\ETL Ventas\Lookup.Outputs[Lookup No Match Output]"
-                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
-                  exclusionGroup="1"
-                  name="Lookup No Match Output"
-                  synchronousInputId="Package\ETL Ventas\Lookup.Inputs[Lookup Input]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\ETL Ventas\Lookup.Outputs[Lookup Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Lookup Error Output"
-                  synchronousInputId="Package\ETL Ventas\Lookup.Inputs[Lookup Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL Ventas\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\ETL Ventas\OLE DB Destination"
-              componentClassID="Microsoft.OLEDBDestination"
-              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
-              description="OLE DB Destination"
-              name="OLE DB Destination"
-              usesDispositions="true"
-              version="4">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                  name="CommandTimeout">0</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[dbo].[FACT_SCORE]</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the variable that contains the name of the database object used to open a rowset."
-                  name="OpenRowsetVariable"></property>
-                <property
-                  dataType="System.String"
-                  description="The SQL command to be executed."
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the column code page to use when code page information is unavailable from the data source."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Forces the use of the DefaultCodePage property value when describing character data."
-                  name="AlwaysUseDefaultCodePage">false</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the mode used to access the database."
-                  name="AccessMode"
-                  typeConverter="AccessMode">3</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
-                  name="FastLoadKeepIdentity">false</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
-                  name="FastLoadKeepNulls">false</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
-                  name="FastLoadMaxInsertCommitSize">2147483647</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\ETL Ventas\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
-                  description="The OLE DB runtime connection used to access the database."
-                  name="OleDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input]"
-                  errorOrTruncationOperation="Insert"
-                  errorRowDisposition="FailComponent"
-                  hasSideEffects="true"
-                  name="OLE DB Destination Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of COURSE_ID]"
-                      cachedDataType="numeric"
-                      cachedName="Copy of COURSE_ID"
-                      cachedPrecision="18"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_COURSE_ID]"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of COURSE_ID]" />
-                    <inputColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of STUNDENT_ID]"
-                      cachedDataType="numeric"
-                      cachedName="Copy of STUNDENT_ID"
-                      cachedPrecision="18"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_STUDENT_ID]"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STUNDENT_ID]" />
-                    <inputColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of STAFF_ID]"
-                      cachedDataType="numeric"
-                      cachedName="Copy of STAFF_ID"
-                      cachedPrecision="18"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_STAFF_ID]"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of STAFF_ID]" />
-                    <inputColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Nota]"
-                      cachedDataType="numeric"
-                      cachedName="Copy of Nota"
-                      cachedPrecision="18"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_SCORE]"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Nota]" />
-                    <inputColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of TIME_ID]"
-                      cachedDataType="numeric"
-                      cachedName="Copy of TIME_ID"
-                      cachedPrecision="18"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_TIME_ID]"
-                      lineageId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of TIME_ID]" />
-                  </inputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_COURSE_ID]"
-                      dataType="i4"
-                      name="SCORE_COURSE_ID" />
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_STUDENT_ID]"
-                      dataType="i4"
-                      name="SCORE_STUDENT_ID" />
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_STAFF_ID]"
-                      dataType="i4"
-                      name="SCORE_STAFF_ID" />
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_SCORE]"
-                      dataType="i4"
-                      name="SCORE_SCORE" />
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SCORE_TIME_ID]"
-                      dataType="i4"
-                      name="SCORE_TIME_ID" />
-                  </externalMetadataColumns>
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\ETL Ventas\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\ETL Ventas\OLE DB Source"
-              componentClassID="Microsoft.OLEDBSource"
-              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
-              description="OLE DB Source"
-              name="OLE DB Source"
-              usesDispositions="true"
-              version="7">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                  name="CommandTimeout">0</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset"></property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the variable that contains the name of the database object used to open a rowset."
-                  name="OpenRowsetVariable"></property>
-                <property
-                  dataType="System.String"
-                  description="The SQL command to be executed."
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT	studentDM.STUNDENT_ID,
-		courseDM.COURSE_ID,
-		staffDM.STAFF_ID,
-		timeDM.TIME_ID,
-		EnrolDetailU.detailScore AS Nota
-
-FROM UniversityBD.student.tblEnrolmentDetail AS EnrolDetailU
-INNER JOIN UniversityBD.student.tblEnrolment AS EnrolU
-ON ENrolU.enrolmentId = EnrolDetailU.detailEnrolmentId
-INNER JOIN UniversityBD.student.tblStudent AS StudentU
-ON StudentU.studentId = ENrolU.enrolmentStudentId
-INNER JOIN UniversityBD.university.tblStaff AS StaffU
-ON StaffU.staffId = EnrolDetailU.detailStaffId
-INNER JOIN UniversityBD.university.tblCourse AS CourseU
-ON CourseU.courseId = EnrolDetailU.detailCourseId
-INNER JOIN UniversityBD.university.tblDepartment AS DeptU
-ON DeptU.departmentId = CourseU.courseDepartmentId
-INNER JOIN UniversityBD.university.tblSchool as SchoolU
-ON SchoolU.schoolId = DeptU.departmentSchoolId
-
-INNER JOIN DMUniversityBD.dbo.DIM_STUDENT AS studentDM
-ON studentDM.STUDENT_EMAIL = StudentU.studentEmail
-INNER JOIN DMUniversityBD.dbo.DIM_COURSE AS courseDM
-ON courseDM.COURSE_NAME = CourseU.courseName
-INNER JOIN DMUniversityBD.dbo.DIM_STAFF AS staffDM
-ON staffDM.STAFF_EMAIL = StaffU.staffEmail
-INNER JOIN DMUniversityBD.dbo.DIM_TIME AS timeDM
-ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
-                <property
-                  dataType="System.String"
-                  description="The variable that contains the SQL command to be executed."
-                  name="SqlCommandVariable"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the column code page to use when code page information is unavailable from the data source."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Forces the use of the DefaultCodePage property value when describing character data."
-                  name="AlwaysUseDefaultCodePage">false</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the mode used to access the database."
-                  name="AccessMode"
-                  typeConverter="AccessMode">2</property>
-                <property
-                  dataType="System.String"
-                  description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping"></property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\ETL Ventas\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-JLOV2OI.DMUniversityBD]"
-                  description="The OLE DB runtime connection used to access the database."
-                  name="OleDbConnection" />
-              </connections>
-              <outputs>
-                <output
-                  refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output]"
-                  name="OLE DB Source Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[STUNDENT_ID]"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STUNDENT_ID]"
-                      name="STUNDENT_ID"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[COURSE_ID]"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[COURSE_ID]"
-                      name="COURSE_ID"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[STAFF_ID]"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[STAFF_ID]"
-                      name="STAFF_ID"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TIME_ID]"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TIME_ID]"
-                      name="TIME_ID"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Nota]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Nota]"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Nota]"
-                      name="Nota"
-                      truncationRowDisposition="FailComponent" />
-                  </outputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[STUNDENT_ID]"
-                      dataType="i4"
-                      name="STUNDENT_ID" />
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[COURSE_ID]"
-                      dataType="i4"
-                      name="COURSE_ID" />
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[STAFF_ID]"
-                      dataType="i4"
-                      name="STAFF_ID" />
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TIME_ID]"
-                      dataType="i4"
-                      name="TIME_ID" />
-                    <externalMetadataColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Nota]"
-                      dataType="i4"
-                      name="Nota" />
-                  </externalMetadataColumns>
-                </output>
-                <output
-                  refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output]"
-                  isErrorOut="true"
-                  name="OLE DB Source Error Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[STUNDENT_ID]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[STUNDENT_ID]"
-                      name="STUNDENT_ID" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[COURSE_ID]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[COURSE_ID]"
-                      name="COURSE_ID" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[STAFF_ID]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[STAFF_ID]"
-                      name="STAFF_ID" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TIME_ID]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TIME_ID]"
-                      name="TIME_ID" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Nota]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Nota]"
-                      name="Nota" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-          </components>
-          <paths>
-            <path
-              refId="Package\ETL Ventas.Paths[Agregar]"
-              endId="Package\ETL Ventas\OLE DB Destination.Inputs[OLE DB Destination Input]"
-              name="Agregar"
-              startId="Package\ETL Ventas\Conditional Split.Outputs[Agregar]" />
-            <path
-              refId="Package\ETL Ventas.Paths[Data Conversion Output]"
-              endId="Package\ETL Ventas\Lookup.Inputs[Lookup Input]"
-              name="Data Conversion Output"
-              startId="Package\ETL Ventas\Data Conversion.Outputs[Data Conversion Output]" />
-            <path
-              refId="Package\ETL Ventas.Paths[Lookup Match Output]"
-              endId="Package\ETL Ventas\Conditional Split.Inputs[Conditional Split Input]"
-              name="Lookup Match Output"
-              startId="Package\ETL Ventas\Lookup.Outputs[Lookup Match Output]" />
-            <path
-              refId="Package\ETL Ventas.Paths[OLE DB Source Output]"
-              endId="Package\ETL Ventas\Data Conversion.Inputs[Data Conversion Input]"
-              name="OLE DB Source Output"
-              startId="Package\ETL Ventas\OLE DB Source.Outputs[OLE DB Source Output]" />
-          </paths>
-        </pipeline>
-      </DTS:ObjectData>
-    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -4930,7 +4930,7 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       DTS:From="Package\ETL Student"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
-      DTS:To="Package\ETL Ventas" />
+      DTS:To="Package\ETL Score" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
@@ -4938,7 +4938,7 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       DTS:From="Package\ETL Course"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
-      DTS:To="Package\ETL Ventas" />
+      DTS:To="Package\ETL Score" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
@@ -4946,7 +4946,7 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       DTS:From="Package\ETL Staff"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
-      DTS:To="Package\ETL Ventas" />
+      DTS:To="Package\ETL Score" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
       DTS:CreationName=""
@@ -4954,7 +4954,7 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       DTS:From="Package\ETL Time"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 3"
-      DTS:To="Package\ETL Ventas" />
+      DTS:To="Package\ETL Score" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -4969,10 +4969,6 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="137.333333333334,42.6666666666667"
-          Id="Package\ETL Student"
-          TopLeft="28.7499995715915,117.649997896254" />
-        <NodeLayout
           Size="133.333333333334,42.6666666666667"
           Id="Package\ETL Course"
           TopLeft="174.999997392297,117.649997896254" />
@@ -4981,39 +4977,43 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
           Id="Package\ETL Staff"
           TopLeft="318.749995250255,117.649997896254" />
         <NodeLayout
+          Size="137.333333333334,42.6666666666667"
+          Id="Package\ETL Student"
+          TopLeft="28.7499995715915,117.649997896254" />
+        <NodeLayout
           Size="124,42.6666666666667"
           Id="Package\ETL Time"
           TopLeft="452.499993257225,115.049997942746" />
         <NodeLayout
-          Size="132,42.6666666666667"
-          Id="Package\ETL Ventas"
+          Size="126.666666666667,42.6666666666667"
+          Id="Package\ETL Score"
           TopLeft="221.249996703118,219.049996083081" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="97.4166662382581,160.316664562921">
+          TopLeft="97.4166662382582,160.316664562921">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="152.63333046486,58.7333315201601"
+              EndConnector="151.566663798193,58.7333315201603"
               Start="0,0"
-              End="152.63333046486,51.2333315201601">
+              End="151.566663798193,51.2333315201603">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.890294096314" />
+                    End="0,36.8467532534058" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,36.890294096314"
-                    Point2="0,40.890294096314"
-                    Point3="4,40.890294096314" />
+                    Point1="0,36.8467532534058"
+                    Point2="0,40.8467532534058"
+                    Point3="4,40.8467532534058" />
                   <mssgle:LineSegment
-                    End="148.63333046486,40.890294096314" />
+                    End="147.566663798193,40.8467532534058" />
                   <mssgle:CubicBezierSegment
-                    Point1="148.63333046486,40.890294096314"
-                    Point2="152.63333046486,40.890294096314"
-                    Point3="152.63333046486,44.890294096314" />
+                    Point1="147.566663798193,40.8467532534058"
+                    Point2="151.566663798193,40.8467532534058"
+                    Point3="151.566663798193,44.8467532534058" />
                   <mssgle:LineSegment
-                    End="152.63333046486,51.2333315201601" />
+                    End="151.566663798193,51.2333315201603" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5024,30 +5024,30 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="241.666664058963,160.316664562921">
+          TopLeft="241.666664058964,160.316664562921">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="33.1833326441547,58.7333315201602"
+              EndConnector="31.049999310821,58.7333315201603"
               Start="0,0"
-              End="33.1833326441547,51.2333315201602">
+              End="31.049999310821,51.2333315201603">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,28.4113702368777" />
+                    End="0,28.4022444507272" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,28.4113702368777"
-                    Point2="0,32.4113702368777"
-                    Point3="4,32.4113702368777" />
+                    Point1="0,28.4022444507272"
+                    Point2="0,32.4022444507272"
+                    Point3="4,32.4022444507272" />
                   <mssgle:LineSegment
-                    End="29.1833326441547,32.4113702368777" />
+                    End="27.049999310821,32.4022444507272" />
                   <mssgle:CubicBezierSegment
-                    Point1="29.1833326441547,32.4113702368777"
-                    Point2="33.1833326441547,32.4113702368777"
-                    Point3="33.1833326441547,36.4113702368777" />
+                    Point1="27.049999310821,32.4022444507272"
+                    Point2="31.049999310821,32.4022444507272"
+                    Point3="31.049999310821,36.4022444507272" />
                   <mssgle:LineSegment
-                    End="33.1833326441547,51.2333315201602" />
+                    End="31.049999310821,51.2333315201603" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5062,26 +5062,26 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-80.43333188047,58.7333315201601"
+              EndConnector="-83.6333318804703,58.7333315201603"
               Start="0,0"
-              End="-80.43333188047,51.2333315201601">
+              End="-83.6333318804703,51.2333315201603">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,28.4113702368777" />
+                    End="0,28.4022444507272" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,28.4113702368777"
-                    Point2="0,32.4113702368777"
-                    Point3="-4,32.4113702368777" />
+                    Point1="0,28.4022444507272"
+                    Point2="0,32.4022444507272"
+                    Point3="-4,32.4022444507272" />
                   <mssgle:LineSegment
-                    End="-76.43333188047,32.4113702368777" />
+                    End="-79.6333318804703,32.4022444507272" />
                   <mssgle:CubicBezierSegment
-                    Point1="-76.43333188047,32.4113702368777"
-                    Point2="-80.43333188047,32.4113702368777"
-                    Point3="-80.43333188047,36.4113702368777" />
+                    Point1="-79.6333318804703,32.4022444507272"
+                    Point2="-83.6333318804703,32.4022444507272"
+                    Point3="-83.6333318804703,36.4022444507272" />
                   <mssgle:LineSegment
-                    End="-80.43333188047,51.2333315201601" />
+                    End="-83.6333318804703,51.2333315201603" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5092,30 +5092,30 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="514.499993257225,157.716664609412">
+          TopLeft="514.499993257225,157.716664609413">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-190.049996554106,61.3333314736685"
+              EndConnector="-194.316663220774,61.3333314736683"
               Start="0,0"
-              End="-190.049996554106,53.8333314736685">
+              End="-194.316663220774,53.8333314736683">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,38.7004206462249" />
+                    End="0,38.6549523425951" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,38.7004206462249"
-                    Point2="0,42.7004206462249"
-                    Point3="-4,42.7004206462249" />
+                    Point1="0,38.6549523425951"
+                    Point2="0,42.6549523425951"
+                    Point3="-4,42.6549523425951" />
                   <mssgle:LineSegment
-                    End="-186.049996554106,42.7004206462249" />
+                    End="-190.316663220774,42.6549523425951" />
                   <mssgle:CubicBezierSegment
-                    Point1="-186.049996554106,42.7004206462249"
-                    Point2="-190.049996554106,42.7004206462249"
-                    Point3="-190.049996554106,46.7004206462249" />
+                    Point1="-190.316663220774,42.6549523425951"
+                    Point2="-194.316663220774,42.6549523425951"
+                    Point3="-194.316663220774,46.6549523425951" />
                   <mssgle:LineSegment
-                    End="-190.049996554106,53.8333314736685" />
+                    End="-194.316663220774,53.8333314736683" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5128,218 +5128,10 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\ETL Student">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="172,42.6666666666667"
-          Id="Package\ETL Student\OLE DB Destination"
-          TopLeft="304.999995455146,281.449994967282" />
-        <NodeLayout
-          Size="150.666666666667,42.6666666666667"
-          Id="Package\ETL Student\OLE DB Source"
-          TopLeft="99.9999985098839,64.3499988493324" />
-        <NodeLayout
-          Size="157.333333333334,42.6666666666667"
-          Id="Package\ETL Student\Data Conversion"
-          TopLeft="154.99999769032,135.849997570813" />
-        <NodeLayout
-          Size="156,42.6666666666667"
-          Id="Package\ETL Student\Conditional Split"
-          TopLeft="534.999992027879,194.349996524751" />
-        <NodeLayout
-          Size="113.333333333334,42.6666666666667"
-          Id="Package\ETL Student\Lookup"
-          TopLeft="378.749994356185,139.749997501075" />
-        <EdgeLayout
-          Id="Package\ETL Student.Paths[OLE DB Source Output]"
-          TopLeft="175.333331843217,107.016665515999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="58.3333325137694,28.8333320548137"
-              Start="0,0"
-              End="58.3333325137694,21.3333320548137">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,10.4166660274068" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.4166660274068"
-                    Point2="0,14.4166660274068"
-                    Point3="4,14.4166660274068" />
-                  <mssgle:LineSegment
-                    End="54.3333325137694,14.4166660274068" />
-                  <mssgle:CubicBezierSegment
-                    Point1="54.3333325137694,14.4166660274068"
-                    Point2="58.3333325137694,14.4166660274068"
-                    Point3="58.3333325137694,18.4166660274068" />
-                  <mssgle:LineSegment
-                    End="58.3333325137694,21.3333320548137" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Student.Paths[Data Conversion Output]"
-          TopLeft="312.333331023653,159.133330869277">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="66.4166633325318,0"
-              Start="0,0"
-              End="58.9166633325318,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="58.9166633325318,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Student.Paths[Lookup Match Output]"
-          TopLeft="492.083327689518,161.083330834409">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="42.9166643383603,54.5999990236759"
-              Start="0,0"
-              End="35.4166643383603,54.5999990236759">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="17.4583321691802,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="17.4583321691802,0"
-                    Point2="21.4583321691802,0"
-                    Point3="21.4583321691802,4" />
-                  <mssgle:LineSegment
-                    End="21.4583321691802,50.5999990236759" />
-                  <mssgle:CubicBezierSegment
-                    Point1="21.4583321691802,50.5999990236759"
-                    Point2="21.4583321691802,54.5999990236759"
-                    Point3="25.4583321691802,54.5999990236759" />
-                  <mssgle:LineSegment
-                    End="35.4166643383603,54.5999990236759" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-26.7330545495699,-17.609375,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Student.Paths[Agregar]"
-          TopLeft="612.999992027879,237.016663191418">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-221.999996572733,44.4333317758642"
-              Start="0,0"
-              End="-221.999996572733,36.9333317758642">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,18.2166658879321" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,18.2166658879321"
-                    Point2="0,22.2166658879321"
-                    Point3="-4,22.2166658879321" />
-                  <mssgle:LineSegment
-                    End="-217.999996572733,22.2166658879321" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-217.999996572733,22.2166658879321"
-                    Point2="-221.999996572733,22.2166658879321"
-                    Point3="-221.999996572733,26.2166658879321" />
-                  <mssgle:LineSegment
-                    End="-221.999996572733,36.9333317758642" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-129.386756098866,27.2166658879321,36.773515625,11.3359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL Student\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL Student\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL Student\Lookup">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DIM_STUDENT]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
     design-time-name="Package\ETL Course">
     <LayoutInfo>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="172,42.6666666666667"
-          Id="Package\ETL Course\OLE DB Destination"
-          TopLeft="532,419" />
-        <NodeLayout
-          Size="150.666666666667,42.6666666666667"
-          Id="Package\ETL Course\OLE DB Source"
-          TopLeft="118,91" />
         <NodeLayout
           Size="157.333333333334,42.6666666666667"
           Id="Package\ETL Course\Data Conversion"
@@ -5349,9 +5141,17 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
           Id="Package\ETL Course\Conditional Split"
           TopLeft="594,279" />
         <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\ETL Course\OLE DB Source"
+          TopLeft="118,91" />
+        <NodeLayout
           Size="113.333333333334,42.6666666666667"
           Id="Package\ETL Course\Lookup"
           TopLeft="464,225" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\ETL Course\OLE DB Destination"
+          TopLeft="532,419" />
         <EdgeLayout
           Id="Package\ETL Course.Paths[OLE DB Source Output]"
           TopLeft="193.333333333333,133.666666666667">
@@ -5383,35 +5183,9 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Course.Paths[Data Conversion Output]"
-          TopLeft="457.333333333333,182.333333333333">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="63.3333333333334,42.6666666666666"
-              Start="0,0"
-              End="63.3333333333334,35.1666666666666">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="59.3333333333334,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="59.3333333333334,0"
-                    Point2="63.3333333333334,0"
-                    Point3="63.3333333333334,4" />
-                  <mssgle:LineSegment
-                    End="63.3333333333334,35.1666666666666" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5441,6 +5215,36 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
               BoundingBox="46.4752799479167,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ETL Course.Paths[Data Conversion Output]"
+          TopLeft="457.333333333333,182.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="63.3333333333334,42.6666666666666"
+              Start="0,0"
+              End="63.3333333333334,35.1666666666666">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="59.3333333333334,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="59.3333333333334,0"
+                    Point2="63.3333333333334,0"
+                    Point3="63.3333333333334,4" />
+                  <mssgle:LineSegment
+                    End="63.3333333333334,35.1666666666666" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -5510,7 +5314,7 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -5520,7 +5324,7 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -5533,14 +5337,6 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="150.666666666667,42.6666666666667"
-          Id="Package\ETL Staff\OLE DB Source"
-          TopLeft="128,73" />
-        <NodeLayout
-          Size="172,42.6666666666667"
-          Id="Package\ETL Staff\OLE DB Destination"
-          TopLeft="648,423" />
-        <NodeLayout
           Size="113.333333333334,42.6666666666667"
           Id="Package\ETL Staff\Lookup"
           TopLeft="430,277" />
@@ -5549,9 +5345,17 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
           Id="Package\ETL Staff\Data Conversion"
           TopLeft="308,195" />
         <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\ETL Staff\OLE DB Destination"
+          TopLeft="648,423" />
+        <NodeLayout
           Size="156,42.6666666666667"
           Id="Package\ETL Staff\Conditional Split"
           TopLeft="590,317" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\ETL Staff\OLE DB Source"
+          TopLeft="128,73" />
         <EdgeLayout
           Id="Package\ETL Staff.Paths[OLE DB Source Output]"
           TopLeft="203.333333333333,115.666666666667">
@@ -5583,41 +5387,9 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Staff.Paths[Data Conversion Output]"
-          TopLeft="386.666666666667,237.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="99.9999999999999,39.3333333333333"
-              Start="0,0"
-              End="99.9999999999999,31.8333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,15.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,15.6666666666667"
-                    Point2="0,19.6666666666667"
-                    Point3="4,19.6666666666667" />
-                  <mssgle:LineSegment
-                    End="95.9999999999999,19.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="95.9999999999999,19.6666666666667"
-                    Point2="99.9999999999999,19.6666666666667"
-                    Point3="99.9999999999999,23.6666666666667" />
-                  <mssgle:LineSegment
-                    End="99.9999999999999,31.8333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5653,6 +5425,42 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
               BoundingBox="-24.8580533854166,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ETL Staff.Paths[Data Conversion Output]"
+          TopLeft="386.666666666667,237.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="99.9999999999999,39.3333333333333"
+              Start="0,0"
+              End="99.9999999999999,31.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.6666666666667"
+                    Point2="0,19.6666666666667"
+                    Point3="4,19.6666666666667" />
+                  <mssgle:LineSegment
+                    End="95.9999999999999,19.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="95.9999999999999,19.6666666666667"
+                    Point2="99.9999999999999,19.6666666666667"
+                    Point3="99.9999999999999,23.6666666666667" />
+                  <mssgle:LineSegment
+                    End="99.9999999999999,31.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -5696,6 +5504,29 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\ETL Staff\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DIM_STAFF]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\ETL Staff\OLE DB Source">
     <Properties>
       <Property>
@@ -5716,26 +5547,209 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\ETL Student">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="113.333333333334,42.6666666666667"
+          Id="Package\ETL Student\Lookup"
+          TopLeft="375.892851499042,151.178568929646" />
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\ETL Student\Data Conversion"
+          TopLeft="179.285711976034,124.421426142242" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\ETL Student\OLE DB Destination"
+          TopLeft="759.28570974086,242.878566395853" />
+        <NodeLayout
+          Size="156,42.6666666666667"
+          Id="Package\ETL Student\Conditional Split"
+          TopLeft="534.999992027879,200.064282239037" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\ETL Student\OLE DB Source"
+          TopLeft="99.9999985098839,64.3499988493324" />
+        <EdgeLayout
+          Id="Package\ETL Student.Paths[OLE DB Source Output]"
+          TopLeft="250.666665176551,85.6833321826657">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="7.28571346615041,38.7380939595758"
+              Start="0,0"
+              End="7.28571346615041,31.2380939595758">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="3.28571346615041,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="3.28571346615041,0"
+                    Point2="7.28571346615041,0"
+                    Point3="7.28571346615041,4" />
+                  <mssgle:LineSegment
+                    End="7.28571346615041,31.2380939595758" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ETL Student.Paths[Lookup Match Output]"
+          TopLeft="489.226184832375,172.51190226298">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="45.7738071955038,48.8857133093903"
+              Start="0,0"
+              End="38.2738071955038,48.8857133093903">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="18.8869035977519,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.8869035977519,0"
+                    Point2="22.8869035977519,0"
+                    Point3="22.8869035977519,4" />
+                  <mssgle:LineSegment
+                    End="22.8869035977519,44.8857133093903" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.8869035977519,44.8857133093903"
+                    Point2="22.8869035977519,48.8857133093903"
+                    Point3="26.8869035977519,48.8857133093903" />
+                  <mssgle:LineSegment
+                    End="38.2738071955038,48.8857133093903" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.3044831209981,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ETL Student.Paths[Data Conversion Output]"
+          TopLeft="336.619045309368,145.754759475575">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="39.2738061896745,26.7571427874049"
+              Start="0,0"
+              End="31.7738061896745,26.7571427874049">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="15.6369030948372,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="15.6369030948372,0"
+                    Point2="19.6369030948372,0"
+                    Point3="19.6369030948372,4" />
+                  <mssgle:LineSegment
+                    End="19.6369030948372,22.7571427874049" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19.6369030948372,22.7571427874049"
+                    Point2="19.6369030948372,26.7571427874049"
+                    Point3="23.6369030948372,26.7571427874049" />
+                  <mssgle:LineSegment
+                    End="31.7738061896745,26.7571427874049" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ETL Student.Paths[Agregar]"
+          TopLeft="690.999992027879,221.39761557237">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="68.285717712981,42.8142841568167"
+              Start="0,0"
+              End="60.785717712981,42.8142841568167">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="30.1428588564905,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="30.1428588564905,0"
+                    Point2="34.1428588564905,0"
+                    Point3="34.1428588564905,4" />
+                  <mssgle:LineSegment
+                    End="34.1428588564905,38.8142841568167" />
+                  <mssgle:CubicBezierSegment
+                    Point1="34.1428588564905,38.8142841568167"
+                    Point2="34.1428588564905,42.8142841568167"
+                    Point3="38.1428588564905,42.8142841568167" />
+                  <mssgle:LineSegment
+                    End="60.785717712981,42.8142841568167" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="15.7561010439905,-17.3359375,36.773515625,11.3359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\ETL Staff\Lookup">
+    design-time-name="Package\ETL Student\Lookup">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
         <Value
-          type="q3:string">[dbo].[DIM_STAFF]</Value>
+          type="q3:string">[dbo].[DIM_STUDENT]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ETL Student\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ETL Student\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -5745,25 +5759,25 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="150.666666666667,42.6666666666667"
-          Id="Package\ETL Time\OLE DB Source"
-          TopLeft="190,91" />
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\ETL Time\Data Conversion"
+          TopLeft="272,157" />
         <NodeLayout
           Size="172,42.6666666666667"
           Id="Package\ETL Time\OLE DB Destination"
           TopLeft="668,383" />
         <NodeLayout
+          Size="113.333333333334,42.6666666666667"
+          Id="Package\ETL Time\Lookup"
+          TopLeft="422,237" />
+        <NodeLayout
           Size="156,42.6666666666667"
           Id="Package\ETL Time\Conditional Split"
           TopLeft="542,329" />
         <NodeLayout
-          Size="157.333333333334,42.6666666666667"
-          Id="Package\ETL Time\Data Conversion"
-          TopLeft="272,157" />
-        <NodeLayout
-          Size="113.333333333334,42.6666666666667"
-          Id="Package\ETL Time\Lookup"
-          TopLeft="422,237" />
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\ETL Time\OLE DB Source"
+          TopLeft="190,91" />
         <EdgeLayout
           Id="Package\ETL Time.Paths[OLE DB Source Output]"
           TopLeft="265.333333333333,133.666666666667">
@@ -5795,41 +5809,9 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Time.Paths[Data Conversion Output]"
-          TopLeft="350.666666666667,199.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="128,37.3333333333334"
-              Start="0,0"
-              End="128,29.8333333333334">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,14.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,14.6666666666667"
-                    Point2="0,18.6666666666667"
-                    Point3="4,18.6666666666667" />
-                  <mssgle:LineSegment
-                    End="124,18.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="124,18.6666666666667"
-                    Point2="128,18.6666666666667"
-                    Point3="128,22.6666666666667" />
-                  <mssgle:LineSegment
-                    End="128,29.8333333333334" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5869,6 +5851,42 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package\ETL Time.Paths[Data Conversion Output]"
+          TopLeft="350.666666666667,199.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="128,37.3333333333334"
+              Start="0,0"
+              End="128,29.8333333333334">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.6666666666667"
+                    Point2="0,18.6666666666667"
+                    Point3="4,18.6666666666667" />
+                  <mssgle:LineSegment
+                    End="124,18.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="124,18.6666666666667"
+                    Point2="128,18.6666666666667"
+                    Point3="128,22.6666666666667" />
+                  <mssgle:LineSegment
+                    End="128,29.8333333333334" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\ETL Time.Paths[Agregar]"
           TopLeft="698,350.333333333333">
           <EdgeLayout.Curve>
@@ -5902,14 +5920,6 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\ETL Time\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\ETL Time\OLE DB Destination">
     <Properties>
       <Property>
@@ -5928,7 +5938,7 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -5938,144 +5948,48 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ETL Time\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\ETL Ventas">
+    design-time-name="Package\ETL Score">
     <LayoutInfo>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="150.666666666667,42.6666666666667"
-          Id="Package\ETL Ventas\OLE DB Source"
-          TopLeft="108,75" />
-        <NodeLayout
-          Size="172,42.6666666666667"
-          Id="Package\ETL Ventas\OLE DB Destination"
-          TopLeft="572,405" />
-        <NodeLayout
-          Size="156,42.6666666666667"
-          Id="Package\ETL Ventas\Conditional Split"
-          TopLeft="488,315" />
-        <NodeLayout
           Size="157.333333333334,42.6666666666667"
-          Id="Package\ETL Ventas\Data Conversion"
+          Id="Package\ETL Score\Data Conversion"
           TopLeft="232,159" />
         <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\ETL Score\OLE DB Destination"
+          TopLeft="572,405" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\ETL Score\OLE DB Source"
+          TopLeft="108,75" />
+        <NodeLayout
           Size="113.333333333334,42.6666666666667"
-          Id="Package\ETL Ventas\Lookup"
+          Id="Package\ETL Score\Lookup"
           TopLeft="342,231" />
+        <NodeLayout
+          Size="156,42.6666666666667"
+          Id="Package\ETL Score\Conditional Split"
+          TopLeft="488,315" />
         <EdgeLayout
-          Id="Package\ETL Ventas.Paths[OLE DB Source Output]"
-          TopLeft="183.333333333333,117.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="127.333333333333,41.3333333333333"
-              Start="0,0"
-              End="127.333333333333,33.8333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,16.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,16.6666666666667"
-                    Point2="0,20.6666666666667"
-                    Point3="4,20.6666666666667" />
-                  <mssgle:LineSegment
-                    End="123.333333333333,20.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="123.333333333333,20.6666666666667"
-                    Point2="127.333333333333,20.6666666666667"
-                    Point3="127.333333333333,24.6666666666667" />
-                  <mssgle:LineSegment
-                    End="127.333333333333,33.8333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Ventas.Paths[Data Conversion Output]"
-          TopLeft="310.666666666667,201.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="88,29.3333333333333"
-              Start="0,0"
-              End="88,21.8333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,10.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.6666666666667"
-                    Point2="0,14.6666666666667"
-                    Point3="4,14.6666666666667" />
-                  <mssgle:LineSegment
-                    End="84,14.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="84,14.6666666666667"
-                    Point2="88,14.6666666666667"
-                    Point3="88,18.6666666666667" />
-                  <mssgle:LineSegment
-                    End="88,21.8333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Ventas.Paths[Lookup Match Output]"
-          TopLeft="398.666666666667,273.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="167.333333333333,41.3333333333333"
-              Start="0,0"
-              End="167.333333333333,33.8333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,16.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,16.6666666666667"
-                    Point2="0,20.6666666666667"
-                    Point3="4,20.6666666666667" />
-                  <mssgle:LineSegment
-                    End="163.333333333333,20.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="163.333333333333,20.6666666666667"
-                    Point2="167.333333333333,20.6666666666667"
-                    Point3="167.333333333333,24.6666666666667" />
-                  <mssgle:LineSegment
-                    End="167.333333333333,33.8333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="35.4752799479167,25.6666666666667,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ETL Ventas.Paths[Agregar]"
+          Id="Package\ETL Score.Paths[Agregar]"
           TopLeft="566,357.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6110,37 +6024,120 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ETL Score.Paths[OLE DB Source Output]"
+          TopLeft="183.333333333333,117.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="127.333333333333,41.3333333333333"
+              Start="0,0"
+              End="127.333333333333,33.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6666666666667"
+                    Point2="0,20.6666666666667"
+                    Point3="4,20.6666666666667" />
+                  <mssgle:LineSegment
+                    End="123.333333333333,20.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="123.333333333333,20.6666666666667"
+                    Point2="127.333333333333,20.6666666666667"
+                    Point3="127.333333333333,24.6666666666667" />
+                  <mssgle:LineSegment
+                    End="127.333333333333,33.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ETL Score.Paths[Lookup Match Output]"
+          TopLeft="398.666666666667,273.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="167.333333333333,41.3333333333333"
+              Start="0,0"
+              End="167.333333333333,33.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6666666666667"
+                    Point2="0,20.6666666666667"
+                    Point3="4,20.6666666666667" />
+                  <mssgle:LineSegment
+                    End="163.333333333333,20.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="163.333333333333,20.6666666666667"
+                    Point2="167.333333333333,20.6666666666667"
+                    Point3="167.333333333333,24.6666666666667" />
+                  <mssgle:LineSegment
+                    End="167.333333333333,33.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="35.4752799479165,25.6666666666667,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ETL Score.Paths[Data Conversion Output]"
+          TopLeft="310.666666666667,201.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="88,29.3333333333333"
+              Start="0,0"
+              End="88,21.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.6666666666667"
+                    Point2="0,14.6666666666667"
+                    Point3="4,14.6666666666667" />
+                  <mssgle:LineSegment
+                    End="84,14.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="84,14.6666666666667"
+                    Point2="88,14.6666666666667"
+                    Point3="88,18.6666666666667" />
+                  <mssgle:LineSegment
+                    End="88,21.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\ETL Ventas\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL Ventas\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ETL Ventas\Lookup">
+    design-time-name="Package\ETL Score\Lookup">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -6150,10 +6147,31 @@ ON timeDM.TIME_DATE = EnrolU.enrolmentDate</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ETL Score\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ETL Score\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
