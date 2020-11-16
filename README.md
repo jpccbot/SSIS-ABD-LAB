@@ -1,5 +1,3 @@
-(https://img.shields.io/bower/v/editor.md.svg)
-
 # Código SQL
   - Carpeta: 'UniversityBD'
 
