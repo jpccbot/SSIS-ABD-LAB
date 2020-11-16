@@ -1,0 +1,16 @@
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (6, 'Legal', 'Minor contusion of spleen, subsequent encounter');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (2, 'Research and Development', 'Unsp injury of branches of celiac and mesenteric artery');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (6, 'Training', 'Puncture wound without foreign body of penis, init encntr');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (3, 'Support', 'Other disorders of continuity of bone, unspecified shoulder');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (3, 'Research and Development', 'Pedl cyc driver inj in clsn w oth pedl cyc nontraf, sequela');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (2, 'Sales', 'Congenital stenosis and stricture of lacrimal duct');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (8, 'Human Resources', 'Laceration of musc/fasc/tend at wrs/hnd lv, unsp hand');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (3, 'Marketing', 'Noninfective gastroenteritis and colitis, unspecified');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (3, 'Sales', 'Strain of musc/fasc/tend at thi lev, right thigh, sequela');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (4, 'Human Resources', 'Unsp inj unsp musc/fasc/tend at forarm lv, unsp arm, sequela');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (5, 'Training', 'Alcohol dependence');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (2, 'Sales', 'Disp fx of coronoid pro of unsp ulna, 7thB');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (8, 'Training', 'Stress fracture, left finger(s), subs for fx w routn heal');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (7, 'Engineering', 'Encounter for other postprocedural aftercare');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (3, 'Sales', 'Insect bite (nonvenomous) of left elbow, sequela');
+insert into tblDepartment (departmentSchoolId, departmentName, departmentDescription) values (8, 'Research and Development', 'Type 1 diabetes mellitus with diabetic cataract');
